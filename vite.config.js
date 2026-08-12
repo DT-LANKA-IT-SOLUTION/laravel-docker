@@ -19,8 +19,34 @@ export default defineConfig({
     server: {
         host: '0.0.0.0',
         port: 5173,
+        strictPort: true,
+
+        /*
+         * Browser accesses Vite using localhost:5173
+         */
+        origin: 'http://localhost:5173',
+
+        /*
+         * Laravel application is running at localhost:8080.
+         * Allow the Laravel origin to access Vite.
+         */
+        cors: {
+            origin: 'http://localhost:8080',
+        },
+
+        /*
+         * HMR connection from browser
+         */
+        hmr: {
+            host: 'localhost',
+            port: 5173,
+            protocol: 'ws',
+        },
+
         watch: {
-            ignored: ['**/storage/framework/views/**'],
+            ignored: [
+                '**/storage/framework/views/**',
+            ],
         },
     },
 });
